@@ -26,7 +26,7 @@ Then run `taptap` and let the little crumb-ridden hands destroy your tempermenta
 
 ## Current Todo's
 
-- [] Prompt for learner name input
+- [✔] Prompt for learner name input
 - [] Evaluate successes/failures without requiring a carriage return
 - [] Make the `esc` exits the program
 - [] Add support to make it case-insensitive
