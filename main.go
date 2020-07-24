@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -27,6 +28,7 @@ func randomOutput() string {
 }
 
 func main() {
+	name := promptForName()
 	// found := false
 	for {
 		// if found {
@@ -38,16 +40,39 @@ func main() {
 			input := (scanner.Text())
 
 			if input == string(randS) {
-				fmt.Println("Great work, Woody! 🥳")
-				cmd := exec.Command("say", fmt.Sprintf("Great work, Woody! That was the %s key!", input))
+				fmt.Printf("Great work, %s! 🥳\n", name)
+				cmd := exec.Command("say", fmt.Sprintf("Great work, %s! That was the %s key!", name, input))
 				go cmd.Start()
 				// found = true
 				randS = randomOutput()
 			} else if input != string(randS) {
-				fmt.Printf("Try again, Woody! 😝\n%s\n", randS)
-				cmd := exec.Command("say", fmt.Sprintf("Try again, Woody! You pressed %s. . . Can you find %s? \n", input, randS))
+				fmt.Printf("Try again, %s! 😝\n%s\n", name, randS)
+				cmd := exec.Command("say", fmt.Sprintf("Try again, %s! You pressed %s. . . Can you find %s? \n", name, input, randS))
 				go cmd.Start()
 			}
 		}
 	}
+}
+
+func promptForName() string {
+	fmt.Println("👋 Hi, what is your name?")
+	cmd := exec.Command("say", "Hi, what is your name?")
+	go cmd.Start()
+
+	var name string
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		name = strings.TrimSpace(scanner.Text())
+
+		if name == "" {
+			fmt.Println("👋 Hi, what is your name?")
+			cmd := exec.Command("say", "Hi, what is your name?")
+			go cmd.Start()
+			continue
+		}
+
+		break
+	}
+
+	return name
 }
