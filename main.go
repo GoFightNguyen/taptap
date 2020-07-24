@@ -41,14 +41,12 @@ func main() {
 
 			if input == string(randS) {
 				fmt.Printf("Great work, %s! 🥳\n", name)
-				cmd := exec.Command("say", fmt.Sprintf("Great work, %s! That was the %s key!", name, input))
-				go cmd.Start()
+				textToVoice(fmt.Sprintf("Great work, %s! That was the %s key!", name, input))
 				// found = true
 				randS = randomOutput()
 			} else if input != string(randS) {
 				fmt.Printf("Try again, %s! 😝\n%s\n", name, randS)
-				cmd := exec.Command("say", fmt.Sprintf("Try again, %s! You pressed %s. . . Can you find %s? \n", name, input, randS))
-				go cmd.Start()
+				textToVoice(fmt.Sprintf("Try again, %s! You pressed %s. . . Can you find %s? \n", name, input, randS))
 			}
 		}
 	}
@@ -56,8 +54,7 @@ func main() {
 
 func promptForName() string {
 	fmt.Println("👋 Hi, what is your name?")
-	cmd := exec.Command("say", "Hi, what is your name?")
-	go cmd.Start()
+	textToVoice("Hi, what is your name?")
 
 	var name string
 	scanner := bufio.NewScanner(os.Stdin)
@@ -66,8 +63,7 @@ func promptForName() string {
 
 		if name == "" {
 			fmt.Println("👋 Hi, what is your name?")
-			cmd := exec.Command("say", "Hi, what is your name?")
-			go cmd.Start()
+			textToVoice("Hi, what is your name?")
 			continue
 		}
 
@@ -75,4 +71,9 @@ func promptForName() string {
 	}
 
 	return name
+}
+
+func textToVoice(text string) {
+	cmd := exec.Command("say", text)
+	go cmd.Start()
 }
