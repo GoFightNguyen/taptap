@@ -39,12 +39,12 @@ func main() {
 		for scanner.Scan() {
 			input := (scanner.Text())
 
-			if input == string(randS) {
+			if strings.EqualFold(input, randS) {
 				fmt.Printf("Great work, %s! 🥳\n", name)
 				textToVoice(fmt.Sprintf("Great work, %s! That was the %s key!", name, input))
 				// found = true
 				randS = randomOutput()
-			} else if input != string(randS) {
+			} else {
 				fmt.Printf("Try again, %s! 😝\n%s\n", name, randS)
 				textToVoice(fmt.Sprintf("Try again, %s! You pressed %s. . . Can you find %s? \n", name, input, randS))
 			}
