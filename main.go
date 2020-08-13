@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -37,13 +38,13 @@ func main() {
 		for scanner.Scan() {
 			input := (scanner.Text())
 
-			if input == string(randS) {
+			if strings.EqualFold(input, randS) {
 				fmt.Println("Great work, Woody! 🥳")
 				cmd := exec.Command("say", fmt.Sprintf("Great work, Woody! That was the %s key!", input))
 				go cmd.Start()
 				// found = true
 				randS = randomOutput()
-			} else if input != string(randS) {
+			} else {
 				fmt.Printf("Try again, Woody! 😝\n%s\n", randS)
 				cmd := exec.Command("say", fmt.Sprintf("Try again, Woody! You pressed %s. . . Can you find %s? \n", input, randS))
 				go cmd.Start()

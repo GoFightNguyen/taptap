@@ -29,7 +29,7 @@ Then run `taptap` and let the little crumb-ridden hands destroy your tempermenta
 - [] Prompt for learner name input
 - [] Evaluate successes/failures without requiring a carriage return
 - [] Make the `esc` exits the program
-- [] Add support to make it case-insensitive
+- [✔] Add support to make it case-insensitive
 - [] Create different modes of difficulty, such as letters, numbers, special characters, words, etc (toggled with `tab`?)
 - [] Make text-to-voice audio output an optional parameter
 - [] Add "emoji roulette" to cycle through different emoji's on successful keypresses or failures
