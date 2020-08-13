@@ -28,6 +28,7 @@ func randomOutput() string {
 }
 
 func main() {
+	name := promptForName()
 	// found := false
 	for {
 		// if found {
@@ -39,16 +40,40 @@ func main() {
 			input := (scanner.Text())
 
 			if strings.EqualFold(input, randS) {
-				fmt.Println("Great work, Woody! 🥳")
-				cmd := exec.Command("say", fmt.Sprintf("Great work, Woody! That was the %s key!", input))
-				go cmd.Start()
+				fmt.Printf("Great work, %s! 🥳\n", name)
+				textToVoice(fmt.Sprintf("Great work, %s! That was the %s key!", name, input))
 				// found = true
 				randS = randomOutput()
 			} else {
-				fmt.Printf("Try again, Woody! 😝\n%s\n", randS)
-				cmd := exec.Command("say", fmt.Sprintf("Try again, Woody! You pressed %s. . . Can you find %s? \n", input, randS))
-				go cmd.Start()
+				fmt.Printf("Try again, %s! 😝\n%s\n", name, randS)
+				textToVoice(fmt.Sprintf("Try again, %s! You pressed %s. . . Can you find %s? \n", name, input, randS))
 			}
 		}
 	}
+}
+
+func promptForName() string {
+	fmt.Println("👋 Hi, what is your name?")
+	textToVoice("Hi, what is your name?")
+
+	var name string
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		name = strings.TrimSpace(scanner.Text())
+
+		if name == "" {
+			fmt.Println("👋 Hi, what is your name?")
+			textToVoice("Hi, what is your name?")
+			continue
+		}
+
+		break
+	}
+
+	return name
+}
+
+func textToVoice(text string) {
+	cmd := exec.Command("say", text)
+	go cmd.Start()
 }
